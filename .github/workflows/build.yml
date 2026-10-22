@@ -41,4 +41,3 @@ jobs:
       with:
         name: SonixCoreDSP-Debug-APK
         path: app/build/outputs/apk/debug/app-debug.apk
-        
