@@ -1,0 +1,23 @@
+package com.example.sonixcoredsp
+
+import android.app.Activity
+import android.os.Bundle
+import android.widget.TextView
+
+class MainActivity : Activity() {
+    external fun stringFromJNI(): String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tv = TextView(this)
+        tv.textSize = 24f
+        tv.text = stringFromJNI()
+        setContentView(tv)
+    }
+
+    companion object {
+        init {
+            System.loadLibrary("sonixcoredsp")
+        }
+    }
+}
