@@ -22,18 +22,15 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # Automatically accepts licenses and installs target packages
+          packages: 'platforms;android-34 build-tools;34.0.0 cmake;3.22.1'
 
-      - name: Accept SDK Licenses and Install Dependencies
-        run: |
-          yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          
-          # Installs target SDK platform, build tools, and CMake
-          # (Change 'android-34' and '34.0.0' if your project uses a different compileSdk version)
-          ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" "cmake;3.22.1"
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build Debug APK
-        # Forces Gradle to print the exact task error if it fails
         run: ./gradlew assembleDebug --stacktrace --info
